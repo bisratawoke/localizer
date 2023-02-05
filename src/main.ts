@@ -1,7 +1,7 @@
 interface ILocalizer {
   languageObj:Record<string,string>;
   toBeTranslatedTextContainer:Array<string>;
-  __(text:string):string;
+  __(text:string):string ;
   
 }
 
@@ -15,14 +15,19 @@ export default class localizer implements ILocalizer {
     this.toBeTranslatedTextContainer = Object.keys(this.languageObj)
   }
 
-  __(text:string):string {
-    try {
+  __(text:string):string  {
+   
       if(this.toBeTranslatedTextContainer.includes(text)) {
         return this.languageObj[text]
       }
-      throw new Error("Text doesnot exist in pre translated object")
-    } catch (error:any) {
-        return error.message
-    }
+      else throw new errorClass()
+  
   }
+}
+
+export class errorClass extends Error {
+   constructor() {
+    super("Text doesnot exist in pre translated object")
+   }
+
 }
